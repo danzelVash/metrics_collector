@@ -1,0 +1,8 @@
+grpc:
+  listen:
+    type: "tcp"
+    bind_ip: "127.0.0.1"
+    port: "50051"
+
+app_config:
+  log_level: "trace"

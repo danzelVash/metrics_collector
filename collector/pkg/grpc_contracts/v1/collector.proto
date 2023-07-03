@@ -1,0 +1,63 @@
+syntax="proto3";
+
+package collector.grpc_contracts.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+option go_package = "./grpc";
+
+service Collector {
+  rpc RegisterService(RegisterReq) returns (RegisterResp) {};
+
+  rpc RefreshToken(RefreshTokenReq) returns (RefreshTokenResp){};
+
+  rpc SendMetrics(stream SendMetricsReq) returns (SendMetricsResp);
+}
+
+message ErrorStatus {
+  string message = 1;
+  repeated google.protobuf.Any details = 2;
+}
+
+message RegisterReq {
+
+}
+
+message RegisterResp {
+  oneof response {
+    SuccessRegisterResp resp = 1;
+    ErrorStatus error = 2;
+  }
+
+}
+
+message SuccessRegisterResp {
+  int64 serviceId = 1;
+  string token = 2;
+  google.protobuf.Timestamp authExpiredDate = 3;
+}
+
+message RefreshTokenReq {
+  int64 serviceId = 1;
+}
+message RefreshTokenResp {
+  oneof response {
+    RefreshTokenSuccessResp resp = 1;
+    ErrorStatus error = 2;
+  }
+}
+
+message RefreshTokenSuccessResp {
+  int64 serviceId = 1;
+  string token = 2;
+  google.protobuf.Timestamp authExpiredDate = 3;
+}
+
+message SendMetricsReq {
+
+}
+
+message SendMetricsResp {
+
+}
