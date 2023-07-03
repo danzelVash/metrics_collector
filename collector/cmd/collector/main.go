@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"metrics_collector/collector/internal/config"
 	"metrics_collector/collector/pkg/models/grpc"
 	"metrics_collector/pkg/logging"
@@ -9,7 +8,7 @@ import (
 
 func main() {
 	globalConfig := config.GetConfig("collector/internal/config", "config")
-	fmt.Println(globalConfig)
+	//fmt.Println(globalConfig)
 
 	logger := logging.GetLogger(globalConfig.AppConf.LogLevel)
 
@@ -20,5 +19,15 @@ func main() {
 			Port       string
 			SocketFile string
 		}(globalConfig.Grpc.Listen),
+
+		Options: struct {
+			MaxConcurrentStreams uint32
+			InitialWindowSize    int32
+		}(globalConfig.Grpc.Options),
+	}
+
+	srv := new(grpc.Server)
+	if err := srv.Run(serverConf); err != nil {
+		logger.Fatalf("error running server: %s", err.Error())
 	}
 }

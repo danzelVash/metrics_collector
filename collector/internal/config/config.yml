@@ -4,5 +4,9 @@ grpc:
     bind_ip: "127.0.0.1"
     port: "50051"
 
+  options:
+    max_concurrent_streams: 500
+    initial_window_size: 67000
+
 app_config:
   log_level: "trace"
