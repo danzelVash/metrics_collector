@@ -1,4 +1,5 @@
 .PHONY:
+.SILENT:
 
 run-local:
 	go run collector/cmd/collector/main.go

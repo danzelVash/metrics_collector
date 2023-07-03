@@ -33,6 +33,11 @@ type GlobalConfig struct {
 			Port       string `mapstructure:"port"`
 			SocketFile string `mapstructure:"socket_file"`
 		} `mapstructure:"listen"`
+
+		Options struct {
+			MaxConcurrentStreams uint32 `mapstructure:"max_concurrent_streams"`
+			InitialWindowSize    int32  `mapstructure:"initial_window_size"`
+		}
 	} `mapstructure:"grpc"`
 
 	AppConf struct {

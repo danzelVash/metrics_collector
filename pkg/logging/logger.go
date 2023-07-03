@@ -109,10 +109,7 @@ func initialize(logLevel string) {
 		})
 
 		logger.SetLevel(LogLevels[logLevel])
-		fmt.Println(logger.Level, LogLevels[logLevel])
 
 		entry = logrus.NewEntry(logger)
-
-		fmt.Println(entry.Logger.Level)
 	})
 }
